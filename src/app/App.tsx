@@ -46,19 +46,14 @@ import antExp from "@/imports/antExp.png";
 import mideaExp from "@/imports/mideaExp.png";
 import clubAigc from "@/imports/clubAigc.png";
 import clubDirectorLeft from "@/imports/clubDirectorLeft.jpg";
-import clubDirectorCenter from "@/imports/clubDirectorCenter.jpg";
-import clubDirectorRight from "@/imports/clubDirectorRight.jpg";
-import clubPerformance from "@/imports/clubPerformance.jpg";
 import clubTsinghua from "@/imports/clubTsinghua.jpg";
-import clubTeam from "@/imports/clubTeam.jpg";
-import clubParty from "@/imports/clubParty.png";
-import clubStage1 from "@/imports/clubStage1.jpg";
-import clubSocial from "@/imports/clubSocial.jpg";
 import clubAward from "@/imports/clubAward.jpg";
-import clubStage2 from "@/imports/clubStage2.jpg";
-import clubStage3 from "@/imports/clubStage3.jpg";
-import clubPhoto1 from "@/imports/clubPhoto1.jpg";
-import clubPhoto2 from "@/imports/clubPhoto2.jpg";
+import clubNew1 from "@/imports/clubNew1.jpg";
+import clubNew2 from "@/imports/clubNew2.jpg";
+import clubNew3 from "@/imports/clubNew3.jpg";
+import clubNew4 from "@/imports/clubNew4.jpg";
+import nineGridTemplate from "@/imports/nineGridTemplate.jpg";
+import nineGridMine from "@/imports/nineGridMine.jpg";
 
 // ─── Image assets ─────────────────────────────────────────────────────────────
 const IMGS = {
@@ -134,8 +129,8 @@ function Nav() {
           罗静
         </button>
         <div className="hidden md:flex items-center gap-7">
-          {[["education","教育"],["map","地图"],["experience","经历"],["work","项目"],["hobby","兴趣爱好"],["contact","联系"]].map(([id, label]) => (
-            <button key={id} onClick={() => go(id)} className="font-mono text-[10px] tracking-[0.14em] uppercase text-[#666666] hover:text-[#1A1A1A] transition-colors duration-300">
+          {[["education","教育"],["map","地图"],["experience","经历"],["work","项目"],["hobby","爱好"],["contact","联系"],["egg","彩蛋"]].map(([id, label]) => (
+            <button key={id} onClick={() => go(id)} className="font-mono text-[12px] tracking-[0.12em] uppercase text-[#444444] hover:text-[#1A1A1A] transition-colors duration-300">
               {label}
             </button>
           ))}
@@ -211,10 +206,10 @@ function Hero({ onCopilotClick }: { onCopilotClick: () => void }) {
             initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
             className="font-['Playfair_Display'] font-bold text-[#1A1A1A] leading-[1.08] mb-8"
-            style={{ fontSize: "clamp(1.9rem, 4vw, 3.4rem)" }}
+            style={{ fontSize: "clamp(1.5rem, 3.2vw, 2.6rem)" }}
           >
-            所有新的概念和范式，<br />
-            <span className="text-[#555555]">都是让 AI 有用，工具好用的方式。</span>
+            所有新的概念和范式<br />
+            <span className="text-[#555555]">都是让 AI 有用，工具好用的方式</span>
           </motion.h1>
 
           <motion.div
@@ -337,15 +332,14 @@ function Education() {
   return (
     <Reveal id="education" className="py-24 md:py-32 px-6 bg-[#FAFAF8] relative overflow-hidden">
       <BgLayer
-        src={bgMountain} grainId="grain-edu" caption="知识，是从土里生长出来的"
         opacity={0.68} overlay={0.40}
         filterCss="brightness(0.85) saturate(0.80) contrast(1.06)"
       />
       <div className="max-w-6xl mx-auto relative z-10">
         <SLabel n="01" label="教育背景" />
         <h2 className="font-['Playfair_Display'] font-bold text-[#1A1A1A] mb-14 leading-tight" style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)" }}>
-          技术与产品思维，<br />
-          <em className="italic text-[#2F9E6E]">从这里并行生长。</em>
+          技术与产品思维<br />
+          <em className="italic text-[#2F9E6E]">从这里并行生长</em>
         </h2>
         <div className="grid md:grid-cols-2 gap-5">
           {eduCards.map((card, i) => (
@@ -467,9 +461,9 @@ type CoNode = { id: string; num: number; company: string; shortName: string; cit
 const mapCompanyNodes: CoNode[] = [
   { id: "mide",      num: 1, company: "美的集团",          shortName: "美的",     city: "佛山", role: "数据分析实习生",  period: "2024.02 — 06",       logo: mideaLogo,     emoji: null, logoBg: "#FFF8F0", x: 15, y: 40 },
   { id: "pingan",    num: 2, company: "中国平安·平安科技", shortName: "平安科技", city: "深圳", role: "AI 产品经理",    period: "2025.03 — 08",       logo: pinganLogo,    emoji: null, logoBg: "#FFF5EE", x: 29, y: 25 },
-  { id: "tencent",   num: 3, company: "腾讯 IEG",         shortName: "腾讯",     city: "深圳", role: "AI 产品经理",    period: "2025.08 — 11",       logo: tencentLogo,   emoji: null, logoBg: "#EFF4FF", x: 48, y: 13 },
-  { id: "bytedance", num: 4, company: "字节跳动·飞书",     shortName: "飞书",     city: "深圳", role: "AI 产品经理",    period: "2025.11 — 2026.04",  logo: bytedanceLogo, emoji: null, logoBg: "#EEF3FF", x: 67, y: 25 },
-  { id: "ant",       num: 5, company: "蚂蚁集团·支付宝",   shortName: "蚂蚁",     city: "杭州", role: "AI 产品工程师",  period: "2026.06 — 至今",      logo: antGroup,     emoji: null, logoBg: "#E8F5EE", x: 74, y: 14 },
+  { id: "tencent",   num: 3, company: "腾讯 IEG",         shortName: "腾讯",     city: "深圳", role: "AI 产品经理",    period: "2025.08 — 11",       logo: tencentLogo,   emoji: null, logoBg: "#EFF4FF", x: 48, y: 20 },
+  { id: "bytedance", num: 4, company: "字节跳动·飞书",     shortName: "飞书",     city: "深圳", role: "AI 产品经理",    period: "2025.11 — 2026.04",  logo: bytedanceLogo, emoji: null, logoBg: "#EEF3FF", x: 67, y: 28 },
+  { id: "ant",       num: 5, company: "蚂蚁集团·支付宝",   shortName: "蚂蚁",     city: "杭州", role: "AI 产品工程师",  period: "2026.06 — 至今",      logo: antGroup,     emoji: null, logoBg: "#E8F5EE", x: 74, y: 20 },
 ];
 
 // 深圳 sticker image center (SVG % space) — used as branch origin
@@ -512,7 +506,7 @@ function InternshipMap() {
           {/* Map canvas */}
           <div
             className="relative bg-[#EFF4EC]/70 overflow-hidden"
-            style={{ height: "540px" }}
+            style={{ height: "480px" }}
             onClick={() => setActiveId(null)}
           >
             {/* Clouds / plant — 纯 SVG 装饰 */}
@@ -521,14 +515,10 @@ function InternshipMap() {
               <ellipse cx="38" cy="28" rx="18" ry="11" fill="#fff" />
               <ellipse cx="52" cy="30" rx="10" ry="8" fill="#fff" />
             </svg>
-            <svg className="absolute top-2 right-14 w-20 h-12 opacity-18 select-none pointer-events-none" viewBox="0 0 64 40" fill="none">
+            <svg className="absolute top-14 left-1/2 -translate-x-[55%] w-20 h-12 opacity-18 select-none pointer-events-none" viewBox="0 0 64 40" fill="none">
               <ellipse cx="22" cy="24" rx="16" ry="10" fill="#fff" />
               <ellipse cx="38" cy="28" rx="18" ry="11" fill="#fff" />
               <ellipse cx="52" cy="30" rx="10" ry="8" fill="#fff" />
-            </svg>
-            <svg className="absolute top-16 right-44 w-10 h-7 opacity-18 select-none pointer-events-none" viewBox="0 0 64 40" fill="none">
-              <ellipse cx="22" cy="24" rx="16" ry="10" fill="#fff" />
-              <ellipse cx="38" cy="28" rx="18" ry="11" fill="#fff" />
             </svg>
             <svg className="absolute bottom-8 left-[36%] w-8 h-9 opacity-15 select-none pointer-events-none" viewBox="0 0 32 36" fill="none">
               <path d="M16 34 C16 22 10 16 3 14 C12 13 16 8 17 2 C20 10 26 13 31 12 C27 18 24 26 16 34Z" fill="#7FC8A9" />
@@ -549,13 +539,13 @@ function InternshipMap() {
               <path d={`M ${SZ_CX} ${SZ_CY_TOP} C 43 49 36 37 29 25`}
                 stroke="#8FAAC0" strokeWidth="0.52" strokeDasharray="1.6 1.3" fill="none" strokeLinecap="round" />
               {/* 支路：深圳 → 腾讯 */}
-              <path d={`M ${SZ_CX} ${SZ_CY_TOP} C 48 46 48 30 48 13`}
+              <path d={`M ${SZ_CX} ${SZ_CY_TOP} C 48 46 48 34 48 20`}
                 stroke="#8FAAC0" strokeWidth="0.52" strokeDasharray="1.6 1.3" fill="none" strokeLinecap="round" />
               {/* 支路：深圳 → 飞书 */}
-              <path d={`M ${SZ_CX} ${SZ_CY_TOP} C 53 49 60 37 67 25`}
+              <path d={`M ${SZ_CX} ${SZ_CY_TOP} C 53 49 60 38 67 28`}
                 stroke="#8FAAC0" strokeWidth="0.52" strokeDasharray="1.6 1.3" fill="none" strokeLinecap="round" />
               {/* 支路：杭州 → 蚂蚁 */}
-              <path d="M 84 18 C 81 17 78 16 74 14"
+              <path d="M 84 18 C 81 17 78 18 74 20"
                 stroke="#8FAAC0" strokeWidth="0.52" strokeDasharray="1.6 1.3" fill="none" strokeLinecap="round" />
             </svg>
 
@@ -570,8 +560,8 @@ function InternshipMap() {
                   className="select-none block drop-shadow-xl"
                   style={{ width: `${city.imgW}px` }} />
                 <div className="mt-1 flex justify-center">
-                  <div className="bg-white/70 backdrop-blur-sm rounded-full px-3 py-1 shadow-sm border border-gray-200">
-                    <span className="text-[12px] font-semibold text-[#1A1A1A]" style={{ fontFamily: "DM Sans, sans-serif" }}>{city.city}</span>
+                  <div className="bg-white/85 backdrop-blur-sm rounded-full px-3 py-1 shadow-sm border border-gray-200">
+                    <span className="text-[13px] font-semibold text-[#1A1A1A]" style={{ fontFamily: "DM Sans, sans-serif" }}>{city.city}</span>
                   </div>
                 </div>
               </div>
@@ -600,8 +590,8 @@ function InternshipMap() {
                     }
                   </div>
                   <div className="mt-2 flex justify-center">
-                    <div className="bg-white/70 backdrop-blur-sm rounded-full px-2.5 py-1 shadow-sm border border-gray-200 whitespace-nowrap">
-                      <span className="text-[11px] font-semibold text-[#1A1A1A]" style={{ fontFamily: "DM Sans, sans-serif" }}>{co.shortName}</span>
+                    <div className="bg-white/85 backdrop-blur-sm rounded-full px-2.5 py-1 shadow-sm border border-gray-200 whitespace-nowrap">
+                      <span className="text-[12px] font-semibold text-[#1A1A1A]" style={{ fontFamily: "DM Sans, sans-serif" }}>{co.shortName}</span>
                     </div>
                   </div>
                 </div>
@@ -632,9 +622,9 @@ function InternshipMap() {
                       }
                     </div>
                     <div className="p-4">
-                      <div className="font-mono text-[8px] tracking-[0.15em] uppercase text-[#C4845A] mb-1">{active.role} · {active.city}</div>
-                      <div className="font-['Playfair_Display'] font-bold text-[#1A1A1A] text-[14px] leading-snug mb-0.5">{active.company}</div>
-                      <div className="font-mono text-[10px] text-[#C0C0C0] mb-3">{active.period}</div>
+                      <div className="font-mono text-[10px] tracking-[0.15em] uppercase text-[#B46A3D] mb-1">{active.role} · {active.city}</div>
+                      <div className="font-['Playfair_Display'] font-bold text-[#1A1A1A] text-[15px] leading-snug mb-0.5">{active.company}</div>
+                      <div className="font-mono text-[11px] text-[#666666] mb-3">{active.period}</div>
                       <button
                         onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
                         className="w-full bg-[#C4845A] text-white text-[12px] font-medium py-2 rounded-xl hover:bg-[#B07248] transition-colors flex items-center justify-center gap-1.5"
@@ -670,11 +660,11 @@ function Experience() {
 
         <div className="mb-14 max-w-xl">
           <h2 className="font-['Playfair_Display'] font-bold text-[#1A1A1A] text-2xl md:text-3xl mb-4 leading-snug">
-            把 AI 能力，转化为<br />
-            <em className="italic text-[#1E9E66]">更稳定、更清晰的产品体验。</em>
+            把 AI 能力转化为<br />
+            <em className="italic text-[#1E9E66]">更稳定、更清晰的产品体验</em>
           </h2>
           <p className="text-[#555555] text-sm leading-relaxed" style={{ fontFamily: "DM Sans, sans-serif" }}>
-            经历覆盖消息速览、企业知识问答、游戏 AI 玩法、销辅机器人等场景。相比"参与了什么"，我更在意如何拆解问题、搭建评测方法，让模型能力在真实链路里持续产生价值。
+            高精力、高执行力、高感知力。
           </p>
         </div>
 
@@ -714,8 +704,7 @@ function Experience() {
               </div>
 
               <div className={`group relative rounded-xl overflow-hidden aspect-[16/10] bg-[#EAF4EE] ${i % 2 === 1 ? "md:order-1" : ""}`}>
-                <img src={exp.img} alt={exp.imgAlt} className="w-full h-full object-cover opacity-75 group-hover:opacity-90 group-hover:scale-[1.03] transition-all duration-700" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(47,158,110,0.15) 0%, rgba(255,255,255,0.55) 100%)" }} />
+                <img src={exp.img} alt={exp.imgAlt} className="w-full h-full object-cover group-hover:scale-[1.03] transition-all duration-700" />
                 <div className="absolute bottom-4 left-4">
                   <span className="font-mono text-[9px] tracking-[0.15em] uppercase text-[#999999]">{exp.imgAlt}</span>
                 </div>
@@ -1032,8 +1021,7 @@ function ProjectCard({ p, i, onProjectClick }: { p: Project; i: number; onProjec
     >
       {/* Cover image */}
       <div className={`relative overflow-hidden ${p.imgAspect}`}>
-        <img src={p.img} alt={p.title} style={{ objectPosition: p.imgPosition ?? "center" }} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700 ease-out opacity-50" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[rgba(255,255,255,0.55)] via-[rgba(255,255,255,0.05)] to-transparent" />
+        <img src={p.img} alt={p.title} style={{ objectPosition: p.imgPosition ?? "center" }} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700 ease-out" />
 
         {/* Status badge — top left */}
         <div className="absolute top-4 left-4">
@@ -1091,7 +1079,7 @@ function SelectedWork({ onProjectClick }: { onProjectClick: (p: Project) => void
           从需求出发，<em className="italic text-[#2F9E6E]">快速做出来。</em>
         </h2>
         <p className="text-[#555555] text-sm leading-relaxed mb-12 max-w-lg" style={{ fontFamily: "DM Sans, sans-serif" }}>
-          1 个开发中工具 · 3 个 Claude Skill。每一个都来自真实工作中遇到的具体问题，而不是为了「做项目」而做。点击卡片可查看完整截图与说明。
+          1 个工具 · 很多 Skill，每一个都来自真实工作中遇到的具体问题
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
@@ -1135,8 +1123,8 @@ function Skills() {
         <SLabel n="04" label="能力组合" />
         <div className="mb-14">
           <h2 className="font-['Playfair_Display'] font-bold text-[#1A1A1A] leading-tight" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)" }}>
-            懂 AI，也懂产品，<br />
-            <em className="italic text-[#2F9E6E]">也能推动落地。</em>
+            懂 AI 也懂产品<br />
+            <em className="italic text-[#2F9E6E]">也能推动落地</em>
           </h2>
         </div>
         <div className="grid md:grid-cols-3 gap-0">
@@ -1182,8 +1170,8 @@ function AboutMe() {
         <div className="grid md:grid-cols-[1fr_1.8fr] gap-10 md:gap-16 items-start">
           <div>
             <h2 className="font-['Playfair_Display'] font-bold text-[#1A1A1A] mb-6 leading-tight" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)" }}>
-              专业之外，<br />
-              <em className="italic text-[#2F9E6E]">还有舞台。</em>
+              专业之外<br />
+              <em className="italic text-[#2F9E6E]">还有舞台</em>
             </h2>
             <p className="text-[#4D4D4D] text-sm leading-relaxed mb-5" style={{ fontFamily: "DM Sans, sans-serif" }}>
               曾任清华大学 DK5s 街舞社社长、艺术团街舞队队长。任内课程体量增长 1.6 倍，全年开课 150+ 场、覆盖 8 大舞种、服务 6400+ 人次；主持社团 10 周年专场《拾光之旅》——筹备近一年、集结 104 名演员、吸引 900+ 观众，是建社以来首次专场演出。
@@ -1192,7 +1180,7 @@ function AboutMe() {
               舞台让我理解节奏、现场感和团队协作。这些东西渗透进了我做产品的方式里——对节奏的把控，对细节的执行，和在不确定中保持清醒。
             </p>
             <p className="text-[#4D4D4D] text-sm leading-relaxed mb-4" style={{ fontFamily: "DM Sans, sans-serif" }}>
-              我同时也是导演和制片：《青春赞歌》由我担任导演与制片，从脚本、拍摄到剪辑交付，完整体验了「把一个想法做成作品」的全过程，全网收获 20w+ 播放与 3.3w+ 点赞。
+              街舞社原创 MV《青春赞歌》由我担任导演与制片，完整体验了「把一个想法做成作品」的全过程，抖音收获 20w+ 播放与 3.3w+ 点赞。
             </p>
             <a
               href="https://v.douyin.com/ygR0MP57rtY/"
@@ -1221,12 +1209,12 @@ function AboutMe() {
             {[
               { src: clubDirectorLeft, alt: "专场大合影·左", label: "大合影", cls: "col-span-1 row-span-2" },
               { src: clubAigc, alt: "用 AIGC 工具制作专场物料", label: "AIGC 物料", cls: "col-span-2 row-span-2" },
-              { src: clubDirectorCenter, alt: "舞台中央", label: "舞台中央", cls: "col-span-1 row-span-1" },
-              { src: clubDirectorRight, alt: "专场大合影·右", label: "演员方阵", cls: "col-span-1 row-span-1" },
+              { src: clubNew1, alt: "专场现场", label: "现场特写", cls: "col-span-1 row-span-1" },
+              { src: clubNew2, alt: "演出瞬间", label: "演出瞬间", cls: "col-span-1 row-span-1" },
               { src: clubTsinghua, alt: "清华演出", label: "清华演出", cls: "col-span-1 row-span-1" },
-              { src: clubStage1, alt: "专场舞台", label: "拾光之旅", cls: "col-span-1 row-span-1" },
+              { src: clubNew3, alt: "排练日常", label: "排练日常", cls: "col-span-1 row-span-1" },
               { src: clubAward, alt: "五星级社团", label: "五星社团", cls: "col-span-1 row-span-1" },
-              { src: clubPerformance, alt: "现场演出", label: "现场演出", cls: "col-span-1 row-span-1" },
+              { src: clubNew4, alt: "现场表演", label: "现场表演", cls: "col-span-1 row-span-1" },
             ].map(({ src, alt, label, cls }) => (
               <div key={label} className={`${cls} rounded-2xl overflow-hidden group bg-[#E5F3EC] relative`}>
                 <img src={src} alt={alt} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500" />
@@ -1262,13 +1250,9 @@ function Contact() {
         </div>
 
         <h2 className="font-['Playfair_Display'] font-black leading-tight text-[#1A1A1A] mb-6" style={{ fontSize: "clamp(2.2rem, 5.5vw, 4.5rem)" }}>
-          欢迎交流 AI 产品、<br />
-          <em className="italic text-[#1E9E66]">实习机会与合作可能。</em>
+          欢迎交流 AI 产品<br />
+          <em className="italic text-[#1E9E66]">实习机会与合作可能</em>
         </h2>
-
-        <p className="text-[#7A8A7E] text-sm leading-relaxed mb-12 max-w-sm mx-auto" style={{ fontFamily: "DM Sans, sans-serif" }}>
-          联系方式 微信：A15581501619
-        </p>
 
         <div className="inline-block bg-[rgba(47,158,110,0.1)] border border-[rgba(47,158,110,0.25)] rounded-3xl p-8 mb-10 text-left w-full max-w-md">
           <div className="space-y-4">
@@ -1290,6 +1274,41 @@ function Contact() {
           </div>
         </div>
 
+      </div>
+    </Reveal>
+  );
+}
+
+// ─── Easter Egg ────────────────────────────────────────────────────────────────
+function EasterEgg() {
+  return (
+    <Reveal id="egg" className="min-h-screen flex items-center py-24 md:py-32 px-6 bg-[#FAFAF8] relative overflow-hidden">
+      <BgLayer
+        src={bgDog} grainId="grain-egg" caption="一起做有趣的人"
+        opacity={0.65} overlay={0.38}
+        filterCss="brightness(0.90) saturate(0.72) contrast(1.05)"
+      />
+      <div className="max-w-5xl mx-auto relative z-10 w-full">
+        <div className="text-center mb-12">
+          <span className="font-mono text-[11px] tracking-[0.3em] uppercase text-[#1E9E66]">彩蛋</span>
+          <h2 className="font-['Playfair_Display'] font-black text-[#1A1A1A] mt-4 leading-tight" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
+            感谢你看到这里
+          </h2>
+          <p className="text-[#4D4D4D] text-sm leading-relaxed mt-6 max-w-2xl mx-auto" style={{ fontFamily: "DM Sans, sans-serif" }}>
+            本网站的所有背景图为老罗当前的人格九宫格，我的短期目标是寻找一个心仪的工作，长期目标是做一个有趣的人。所以，无论你是谁，欢迎添加联系方式，一起来做有趣的人~
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-6 max-w-2xl mx-auto">
+          <div className="rounded-2xl overflow-hidden bg-white/85 backdrop-blur-md border border-gray-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)]">
+            <img src={nineGridTemplate} alt="空白九宫格" className="w-full h-full object-cover" />
+            <div className="py-3 text-center font-mono text-[9px] tracking-[0.2em] uppercase text-[#777777]">空白九宫格</div>
+          </div>
+          <div className="rounded-2xl overflow-hidden bg-white/85 backdrop-blur-md border border-gray-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)]">
+            <img src={nineGridMine} alt="老罗的人格九宫格" className="w-full h-full object-cover" />
+            <div className="py-3 text-center font-mono text-[9px] tracking-[0.2em] uppercase text-[#777777]">老罗的人格九宫格</div>
+          </div>
+        </div>
       </div>
     </Reveal>
   );
@@ -1343,6 +1362,7 @@ export default function App() {
         <Skills />
         <AboutMe />
         <Contact />
+        <EasterEgg />
       </main>
       <Footer />
       <AnimatePresence>
