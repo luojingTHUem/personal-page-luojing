@@ -45,7 +45,7 @@ import mideaLogo from "@/imports/mideaLogo.svg";
 import antExp from "@/imports/antExp.png";
 import mideaExp from "@/imports/mideaExp.png";
 import clubAigc from "@/imports/clubAigc.png";
-import clubDirectorLeft from "@/imports/clubDirectorLeft.jpg";
+import clubDirector from "@/imports/clubDirector.jpg";
 import clubTsinghua from "@/imports/clubTsinghua.jpg";
 import clubAward from "@/imports/clubAward.jpg";
 import clubNew1 from "@/imports/clubNew1.jpg";
@@ -1205,14 +1205,14 @@ function AboutMe() {
             </div>
           </div>
 
-          <div className="grid grid-cols-4 grid-rows-[200px_170px_200px] gap-3">
+          <div className="grid grid-cols-4 grid-rows-[180px_180px_180px] gap-3">
             {[
-              { src: clubDirectorLeft, alt: "专场大合影·左", label: "大合影", cls: "col-span-1 row-span-2" },
-              { src: clubAigc, alt: "用 AIGC 工具制作专场物料", label: "AIGC 物料", cls: "col-span-2 row-span-2" },
-              { src: clubNew1, alt: "专场现场", label: "现场特写", cls: "col-span-1 row-span-1" },
+              { src: clubDirector, alt: "街舞社专场大合影", label: "大合影", cls: "col-span-2 row-span-1" },
+              { src: clubNew1, alt: "紫色衣服赛场图", label: "赛场特写", cls: "col-span-1 row-span-1" },
               { src: clubNew2, alt: "演出瞬间", label: "演出瞬间", cls: "col-span-1 row-span-1" },
+              { src: clubAigc, alt: "用 AIGC 工具制作专场物料", label: "AIGC 物料", cls: "col-span-2 row-span-2" },
               { src: clubTsinghua, alt: "清华演出", label: "清华演出", cls: "col-span-1 row-span-1" },
-              { src: clubNew3, alt: "排练日常", label: "排练日常", cls: "col-span-1 row-span-1" },
+              { src: clubNew3, alt: "原创活动", label: "原创活动", cls: "col-span-1 row-span-1" },
               { src: clubAward, alt: "五星级社团", label: "五星社团", cls: "col-span-1 row-span-1" },
               { src: clubNew4, alt: "现场表演", label: "现场表演", cls: "col-span-1 row-span-1" },
             ].map(({ src, alt, label, cls }) => (
