@@ -218,7 +218,7 @@ function Hero({ onCopilotClick }: { onCopilotClick: () => void }) {
             className="space-y-3.5 text-[#444444] text-[15px] leading-[1.85] mb-10 max-w-[530px]"
             style={{ fontFamily: "DM Sans, sans-serif" }}
           >
-            <p>我希望能做大众真正愿意用的 AI 产品。过去先后在蚂蚁支付宝、字节飞书、腾讯 IEG、平安科技参与消息速览、企业知识问答、游戏 AI 玩法与销辅机器人等不同项目，不断体会 AI 能力是如何在真实业务链路里产生价值的。</p>
+            <p>我希望能做出大众真正愿意用的 AI 产品。过去两年，我先后在蚂蚁支付宝、字节飞书、腾讯 IEG、平安科技参与知识问答、AIGC 生成、内容总结等各类 AI 产品，从 toB 到 toC、从交互到评测，一直在实践中体会 AI 能力如何在真实业务链路中创造价值。</p>
             <p>做产品之外，我也在搭建自己的工具链：工作日志平台、评测集构建 Skill 等，这些 Vibe Coding 项目都源于真实的工作需求和好奇心。</p>
             <p>最后~我是罗静，可以叫我老罗，清华大学电子信息专硕在读，可提前实习，意向城市包括上海、深圳等。</p>
           </motion.div>
@@ -312,6 +312,7 @@ const eduCards = [
     period: "2024.09 — 2027.06",
     school: "清华大学",
     major: "电子信息专业硕士",
+    badge: "保研",
     sub: "Open Fiesta | 互联网＋创新设计方向",
     logo: tsinghuaLogo,
     logoBg: "#F8F4FA",
@@ -321,6 +322,7 @@ const eduCards = [
     period: "2020.09 — 2024.06",
     school: "中南大学",
     major: "信息管理与信息系统",
+    badge: "专业第一",
     sub: "经济与管理学院",
     logo: csuLogo,
     logoBg: "#EEF6FC",
@@ -357,7 +359,14 @@ function Education() {
                 </div>
               </div>
               <h3 className="font-['Playfair_Display'] font-bold text-[#1A1A1A] text-2xl md:text-3xl mb-1">{card.school}</h3>
-              <p className="text-[#4D4D4D] text-sm mb-1" style={{ fontFamily: "DM Sans, sans-serif" }}>{card.major}</p>
+              <div className="flex items-center gap-2 mb-1">
+                <p className="text-[#4D4D4D] text-sm" style={{ fontFamily: "DM Sans, sans-serif" }}>{card.major}</p>
+                {card.badge && (
+                  <span className="px-2 py-0.5 rounded-full bg-[#2F9E6E]/10 text-[#2F9E6E] text-[10px] font-medium border border-[#2F9E6E]/20">
+                    {card.badge}
+                  </span>
+                )}
+              </div>
               <p className="font-mono text-[9px] tracking-[0.1em] text-[#7A8A7E] mb-7">{card.sub}</p>
               <ul className="space-y-3">
                 {card.items.map(item => (
@@ -381,11 +390,11 @@ const exps = [
     period: "2026.06 — 至今",
     jobTitle: "AI 产品工程师",
     heading: "蚂蚁集团 · 支付宝\nAPP 端内消息速览+平台内部问答机器人",
-    summary: "同时负责 to C 的支付宝消息速览工具改版，以及 to B 的消息平台智能问答机器人从零搭建，涵盖产品改版、Prompt 开发、评测体系与知识图谱构建。",
+    summary: "同时负责 to C 的支付宝消息速览工具改版，与 to B 的消息平台智能问答机器人从零搭建，覆盖产品改版、Prompt 开发、评测体系与知识图谱构建。",
     bullets: [
-      { label: "项目一 · 支付宝消息速览（to C）", text: "结合 8 场线下用研与线上数据，重新梳理八大消息场景（资金变动、财富收益、快递、行程、医疗、生活服务、安全、权益）与业务规则；主导主页面改版、入口优化、后台管理平台三部分，其中主页面改版已于 8 月底上线。" },
-      { label: "Prompt 开发与评测链路", text: "独立输出 7 个提示词至可上线版本；从 0 到 1 重构端到端评测链路与评价指标，协助研发完成基座模型能力评估与选型；输出《AI 产品评测方法论与操作手册》，同步上线评测 Skill，显著提升团队评测优化效率。" },
-      { label: "项目二 · 消息平台智能问答机器人（to B）", text: "消息平台知识分散在代码、文档等各处，咨询效率低、重复性问题多；设计三层知识结构（L1 业务语义层 → L2 代码层 + mapping 映射 → L3 操作 SOP），接入代码、语雀知识库、数据表等四类知识来源；当前 Know 类基础咨询完成度 88%，Do 类执行咨询完成度 65%；已打通 Dataphin CLI 链路，实现周报数据汇报与常规数据下钻洞察。" },
+      { label: "项目一 · 支付宝消息速览（to C）", text: "结合 8 场线下用研与线上数据，重新梳理八大消息场景（资金变动、财富收益、快递、行程、医疗、生活服务、安全、权益）与业务规则；主导主页面改版、入口优化与后台管理平台三大模块，其中主页面改版已于 8 月底上线。" },
+      { label: "Prompt 开发与评测链路", text: "独立交付 7 个可上线的提示词；从 0 到 1 重构端到端评测链路与评价指标，协助研发完成基座模型能力评估与选型；沉淀《AI 产品评测方法论与操作手册》并上线评测 Skill，显著提升团队评测优化效率。" },
+      { label: "项目二 · 消息平台智能问答机器人（to B）", text: "消息平台知识散落在代码与文档各处，咨询效率低、重复问题多；设计三层知识结构（L1 业务语义层 → L2 代码层 + mapping 映射 → L3 操作 SOP），接入代码、语雀知识库、数据表等四类知识来源；当前 Know 类基础咨询完成度 88%，Do 类执行咨询完成度 65%；并打通 Dataphin CLI 链路，支持周报数据汇报与常规数据下钻洞察。" },
     ],
     tags: ["消息速览", "Prompt 工程", "评测体系", "知识图谱"],
     img: antExp,
@@ -397,9 +406,9 @@ const exps = [
     heading: "字节跳动 · 飞书 · 企业知识问答",
     summary: "独立推进多项交互需求从 0 到 GA，搭建 Query 洞察体系与评测链路，季度分析效率提升 70%。",
     bullets: [
-      { label: "功能交互类需求", text: "独立负责/核心参与 3 项交互型需求的方案设计与推进，具备从轻立项—评审—开发—联调—测试—GA 的完整经验；其中「全点位新增安全盾牌标识」峰值日点击 1.4w，「主对话支持双选答案」点击率 40%+，「输入框支持 @文档/群组」DAU 为大盘 2.15%。" },
-      { label: "策略优化与评测", text: "熟悉对话类产品检索到生成的完整技术框架，搭建包括 Scan 深度检索、划词改写、多轮对话、语言判断、数字编码召回、季度 300Q、语种识别在内的多类评测集；熟练掌握从线上洞察—维度拆解—评测集构建—端到端机评/人评的策略优化与评测链路。" },
-      { label: "数据洞察", text: "基于 20 万条线上 Query 独立撰写 prompt，输出《2025 年四季度线上 Query 洞察》报告，重点梳理用户整体意图，并对操作执行、写作、生图等场景及能力短板专项洞察；推动 Query 意图分类体系建设并实现全链路线上埋点，使季度洞察效率提升 70%，并沉淀为后续季度分析的标准方法。" },
+      { label: "功能交互类需求", text: "独立负责或核心参与 3 项交互型需求的方案设计与推进，具备从轻立项—评审—开发—联调—测试—GA 的完整经验；其中「全点位新增安全盾牌标识」峰值日点击 1.4w，「主对话支持双选答案」点击率 40%+，「输入框支持 @文档/群组」DAU 为大盘 2.15%。" },
+      { label: "策略优化与评测", text: "熟悉对话产品从检索到生成的完整技术链路，搭建涵盖 Scan 深度检索、划词改写、多轮对话、语言判断、数字编码召回、季度 300Q、语种识别等多类评测集；熟练掌握「线上洞察—维度拆解—评测集构建—端到端机评/人评」的完整策略优化链路。" },
+      { label: "数据洞察", text: "基于 20 万条线上 Query 独立撰写 prompt，输出《2025 年四季度线上 Query 洞察》报告，系统梳理用户整体意图，并对操作执行、写作、生图等场景的能力短板展开专项分析；推动 Query 意图分类体系建设并实现全链路线上埋点，使季度洞察效率提升 70%，沉淀为后续季度分析的标准方法。" },
     ],
     tags: ["知识问答", "评测优化", "Query 洞察", "交互设计"],
     img: feishuQA,
@@ -411,10 +420,10 @@ const exps = [
     heading: "腾讯 IEG · 游戏 AI 玩法与内部平台优化",
     summary: "负责多款游戏 AI 内容产品及内部平台调研，四期迭代后评论满意度 95%+，同步完成智能体平台竞品分析与美术平台用研。",
     bullets: [
-      { label: "元梦之星 · AI 评论", text: "作为产品负责人输出需求文档、搭建人设 Prompt 及安全审核机制，保障评论合规性与拟人化效果；打通数据链路，实现外包人工截图→安全审核图的迁移；共四期优化，终期实现 95%+ 的评论满意度。" },
-      { label: "NBA 球星评论分类", text: "结合虎扑爬虫、游戏数值、评论原声等多源数据，梳理分类规则与效果优化，推动项目上线，最终实现 95% 的分类准确率。" },
-      { label: "剑侠情缘 · AIGC 角色生图", text: "负责玩法与生图方案设计，围绕个性、境界、主灵根、出身四个维度搭建选项解析、Prompt 映射与差异化提示词体系。" },
-      { label: "内部平台调研", text: "完成 Coze、腾讯元器、蜘蛛智能体工坊的竞品分析，输出功能对比报告，梳理「小智」平台迭代计划；参与美术平台「三谦」用户研究，输出问卷、需求洞察报告与原画师提效报告。" },
+      { label: "元梦之星 · AI 评论", text: "作为产品负责人输出需求文档、搭建人设 Prompt 与安全审核机制，兼顾评论合规性与拟人化效果；打通数据链路，完成外包人工截图到安全审核图的迁移；经四期迭代，最终实现 95%+ 的评论满意度。" },
+      { label: "NBA 球星评论分类", text: "结合虎扑爬虫、游戏数值、评论原声等多源数据，梳理分类规则并持续优化效果，推动项目上线，最终实现 95% 的分类准确率。" },
+      { label: "剑侠情缘 · AIGC 角色生图", text: "负责玩法与生图方案设计，围绕个性、境界、主灵根、出身四个维度，搭建「选项解析—Prompt 映射—差异化提示词」的完整体系。" },
+      { label: "内部平台调研", text: "完成 Coze、腾讯元器、蜘蛛智能体工坊的竞品分析，输出功能对比报告并梳理「小智」平台迭代计划；参与美术平台「三谦」用户研究，输出调研问卷、需求洞察与原画师提效报告。" },
     ],
     tags: ["AIGC", "Prompt 工程", "游戏 AI", "竞品调研"],
     img: yuanmeng,
@@ -426,9 +435,9 @@ const exps = [
     heading: "中国平安 · 平安科技 · 销辅机器人",
     summary: "参与车险续保机器人与电话销售座席销辅两款 AI 产品，试点组协销率较对照组提升 20%，最终面向 2 万座席开放。",
     bullets: [
-      { label: "智小安 · 车险续保机器人（to C）", text: "跟进各版本需求，如产品解读、异议处理流程、一人名下多车、超级产品等功能；协助梳理业务流程、编写 PRD，维护需求池，补充原型样例，计算版本人力饱和度等；对意图识别、异议处理等子模型下发数据标注任务，与工程、算法对接，确保需求高效落地。已接入 11 款非车产品，二期已在浙江地区全面面客。" },
-      { label: "直通 · 电话销售座席销辅机器人（to B）", text: "独立完成 20 余次标注任务下发，包括编写标准、中间控制、Badcase 结果回收与统计，整理优化建议并跟踪算法优化进展；从意图理解、上下文语义、问答匹配度等维度对蚂小财、度晓保、懂保保进行竞品调研；梳理保险销售的服销期、销售期、兜底期各节点的实现情况，整理后续优化方向。" },
-      { label: "成果", text: "已向上海、重庆的 6000+ 座席试用，试点组策略采纳率达 70%，非车协销率较对照组提升 20%，最终面向 2 万座席全面开放。" },
+      { label: "智小安 · 车险续保机器人（to C）", text: "跟进各版本需求，覆盖产品解读、异议处理流程、一人名下多车、超级产品等功能；协助梳理业务流程、编写 PRD、维护需求池、补充原型样例、评估版本人力饱和度；对意图识别、异议处理等子模型下发数据标注任务，与工程、算法对接，确保需求高效落地。目前已接入 11 款非车产品，二期在浙江地区全面面客。" },
+      { label: "直通 · 电话销售座席销辅机器人（to B）", text: "独立完成 20 余次标注任务下发，涵盖标准制定、过程管控与 Badcase 回收统计，整理优化建议并持续跟踪算法迭代；从意图理解、上下文语义、问答匹配度等维度对蚂小财、度晓保、懂保保开展竞品调研；梳理保险销售服销期、销售期、兜底期各节点的实现情况，明确后续优化方向。" },
+      { label: "成果", text: "已覆盖上海、重庆 6000+ 座席试用，试点组策略采纳率达 70%，非车协销率较对照组提升 20%，最终面向 2 万座席全面开放。" },
     ],
     tags: ["保险 AI", "销辅机器人", "数据标注", "意图识别"],
     img: pinganRobot,
@@ -440,11 +449,12 @@ const exps = [
     heading: "美的集团 · 家用空调事业部",
     summary: "在转型 AI 产品前完成数据分析基础训练，建立从业务数字中提炼有效信号的基本直觉。",
     bullets: [
-      { label: "数据分析", text: "负责空调产品线销售数据整理与多维度汇总，使用 Excel 与 Python（pandas）支持周报/月报产出；参与竞品市场分析，输出功能对比报告，为产品定价策略提供数据支撑。" },
+      { label: "数据分析", text: "负责空调产品线销售数据整理与多维度汇总，借助 SQL 与 Python 支撑销售周报/月报产出；参与「以旧换新」竞品市场分析，输出功能对比报告，为产品定价策略提供数据支撑。" },
     ],
     tags: ["数据分析", "Python · Excel", "竞品分析", "商业智能"],
-    img: mideaExp,
-    imgAlt: "美的集团 · 数据分析实习",
+    img: mideaLogo,
+    imgFit: "contain",
+    imgAlt: "美的集团 Logo",
   },
 ];
 
@@ -703,8 +713,8 @@ function Experience() {
                 </div>
               </div>
 
-              <div className={`group relative rounded-xl overflow-hidden aspect-[16/10] bg-[#EAF4EE] ${i % 2 === 1 ? "md:order-1" : ""}`}>
-                <img src={exp.img} alt={exp.imgAlt} className="w-full h-full object-cover group-hover:scale-[1.03] transition-all duration-700" />
+              <div className={`group relative rounded-xl overflow-hidden aspect-[16/10] ${exp.imgFit === "contain" ? "bg-white" : "bg-[#EAF4EE]"} ${i % 2 === 1 ? "md:order-1" : ""}`}>
+                <img src={exp.img} alt={exp.imgAlt} className={`w-full h-full ${exp.imgFit === "contain" ? "object-contain p-6" : "object-cover"} group-hover:scale-[1.03] transition-all duration-700`} />
                 <div className="absolute bottom-4 left-4">
                   <span className="font-mono text-[9px] tracking-[0.15em] uppercase text-[#999999]">{exp.imgAlt}</span>
                 </div>
@@ -722,6 +732,7 @@ interface Project {
   id: string; cat: string; year: string; title: string; subtitle: string; desc: string;
   img: string; span: string; imgAspect: string; imgPosition?: string; status: "已上线" | "开发中" | "Skill";
   tags: string[]; fullDesc: string; whyDesign: string; highlights: string[]; mockupImg: string; gallery?: string[];
+  detailAspect?: string; detailFit?: "cover" | "contain"; detailBg?: string;
 }
 
 const projects: Project[] = [
@@ -731,7 +742,7 @@ const projects: Project[] = [
     year: "2026",
     title: "高效工作助手",
     subtitle: "work-diary",
-    desc: "个人高效工作追踪系统：自动汇聚语雀、钉钉、CodeFuse 等工作碎片，用 AI 总结产出、提取待办、生成周报月报与汇报材料。",
+    desc: "个人高效工作追踪系统：自动汇聚语雀、钉钉、CodeFuse 等工作碎片，以多维表格替代数据库，AI 自动总结工作产出、提取待办、生成周报月报与汇报材料，并对每项工作经历做 OKR 相关度判断，让精力聚焦在真正重要的事项上。",
     img: diaryCover, span: "md:col-span-1", imgAspect: "aspect-[4/3]", imgPosition: "top",
     status: "开发中",
     tags: ["工作记录", "OKR 追踪", "自动报告", "Vibe Coding"],
@@ -751,11 +762,14 @@ const projects: Project[] = [
     img: evalCover, span: "md:col-span-1", imgAspect: "aspect-[4/3]", imgPosition: "left",
     status: "Skill",
     tags: ["Evaluation", "自动化", "语雀", "Claude Skill"],
-    fullDesc: "评测集构建是 AI 产品中最耗时也最容易出错的环节之一。这个 Skill 遵循无偏、真实、迭代、渐进四大设计原则，支持输入需求背景、会议纪要、线上日志、PRD 等多种材料，自动完成需求澄清、追问机制、维度拆解，最终生成结构化的语雀需求文档和带 13 列标准字段的钉钉多维表格。在飞书和蚂蚁实习期间持续使用，已沉淀为标准化工作流。",
-    whyDesign: "每次搭建评测集都要重复同样的步骤：拆解需求 → 定义维度 → 设计测试用例 → 整理文档。这些步骤有规律可循，却消耗大量时间。把它做成 Skill，让模型帮我完成模板化的部分，我只需要关注关键判断。",
-    highlights: ["多格式需求输入（文本 / 纪要 / 听记 / 线上数据 / PRD）", "自动拆解评测维度与示例 Case", "输出语雀文档 + 钉钉多维表格（13 列标准字段）", "沉淀无偏、真实、迭代、渐进的评测原则"],
+    fullDesc: "评测集构建是 AI 产品中最耗时也最容易出错的环节之一。这个 Skill 遵循无偏、真实、迭代、渐进四大设计原则：你只需输入一句评测需求，模型会主动追问澄清背景、范围与目标；随后自动拆解维度、生成示例 Case，最终产出两份标准化交付物——结构化的语雀需求文档和带 13 列标准字段的钉钉多维表格。在飞书和蚂蚁实习期间持续使用，已沉淀为可复用的工作流。",
+    whyDesign: "每次搭建评测集都要重复同样的步骤：拆解需求 → 定义维度 → 设计测试用例 → 整理文档。这些步骤有规律可循，却消耗大量时间。把它做成 Skill 后，只需一句好需求，模型就会通过多轮追问补齐上下文，再自动生成两份可用文档，让我把精力放在关键判断而不是格式整理上。",
+    highlights: ["一句需求输入，模型主动追问澄清", "自动拆解评测维度与示例 Case", "输出语雀文档 + 钉钉多维表格（13 列标准字段）", "沉淀无偏、真实、迭代、渐进的评测原则"],
     mockupImg: eval1,
     gallery: [eval1, eval2, eval3, eval4, eval5, eval6],
+    detailAspect: "aspect-auto",
+    detailFit: "contain",
+    detailBg: "bg-[#F5F5F5]",
   },
   {
     id: "card",
@@ -779,13 +793,13 @@ const projects: Project[] = [
     year: "2026",
     title: "原型转交互 Demo",
     subtitle: "prototype-to-demo",
-    desc: "把 Figma / Axure / 手绘 / 截图等原型，通过 6 步工作流生产为可分享的单文件 HTML Demo，实测 97.5% 还原度。对外展示最多的 Skill。",
+    desc: "把 Figma / Axure / 手绘 / 截图等原型，通过 6 步工作流生产为可分享的单文件 HTML Demo，迭代逼近真实产品体验。",
     img: protoCover, span: "md:col-span-1", imgAspect: "aspect-[4/3]", imgPosition: "top",
     status: "Skill",
     tags: ["原型还原", "HTML Demo", "像素级验证", "Claude Skill"],
-    fullDesc: "产品评审和用户测试中，静态原型图往往无法传达真实的交互感。这个 Skill 通过六步闭环（读原型与拆解动线 → 组件化搭建页面 → 资产分离与画布适配 → 实现自然交互 → 截图验证与视觉修正 → 打包与验收），将任意格式原型转化为可在浏览器中运行的单文件 HTML Demo。内置 20×20 网格像素级采样对比，实测 97.5% 还原度；单文件零依赖，拷贝到任何地方都能直接打开。",
-    whyDesign: "评审会上放一个能点击的 Demo，比展示静态截图效果好 10 倍。但把原型图转成代码通常需要几个小时。六步工作流把这个时间压缩到几分钟，让每次评审都能有可交互的 Demo。",
-    highlights: ["支持 Figma / Axure / 截图 / 手绘稿等多格式输入", "六步工作流端到端自动化", "20×20 网格像素级验证，实测 97.5% 还原度", "单文件 HTML 零依赖，分享即用"],
+    fullDesc: "产品评审和用户测试中，静态原型图往往无法传达真实的交互感。这个 Skill 通过六步闭环（读原型与拆解动线 → 组件化搭建页面 → 资产分离与画布适配 → 实现自然交互 → 截图验证与视觉修正 → 打包与验收），将任意格式原型转化为可在浏览器中直接运行的单文件 HTML Demo。内置 20×20 网格像素级采样对比，实测还原度达 97.5%；单文件零依赖，拷贝到任何设备都能直接打开。",
+    whyDesign: "评审会上放一个能点击的 Demo，比展示静态截图效果好 10 倍。但把原型图转成代码通常需要几个小时。六步工作流把这个时间压缩到几分钟，让每次评审都能用上可交互的 Demo。更关键的是，用户调研阶段真实产品往往尚未开发完成，一个可点击的高保真 Demo 能让用户提前进入真实使用情境，获得更有代入感的反馈，而不是对着静态图凭空想象。",
+    highlights: ["支持 Figma / Axure / 截图 / 手绘稿等多格式输入", "六步工作流端到端自动化", "20×20 网格像素级采样验证，还原度 97.5%", "单文件 HTML 零依赖，分享即用"],
     mockupImg: proto1,
     gallery: [proto1, proto2, proto3],
   },
@@ -856,13 +870,13 @@ function ProjectPage({ project, onBack }: { project: Project; onBack: () => void
 
         {/* RIGHT — gallery */}
         <div className="md:sticky md:top-20">
-          <div className="rounded-2xl overflow-hidden bg-white aspect-[4/5] relative border border-gray-200">
+          <div className={`rounded-2xl overflow-hidden ${project.detailBg ?? "bg-white"} ${project.detailAspect ?? "aspect-[4/5]"} relative border border-gray-200`}>
             <img
               key={activeImg}
               src={gallery[activeImg]}
               alt={project.title}
               style={{ objectPosition: project.imgPosition ?? "center" }}
-              className="w-full h-full object-cover"
+              className={`w-full h-full ${project.detailFit === "contain" ? "object-contain" : "object-cover"}`}
             />
             {gallery.length > 1 && (
               <div className="absolute bottom-3 right-3 font-mono text-[10px] tracking-[0.12em] text-[#666666] bg-white/70 px-2 py-1 rounded-lg backdrop-blur-sm">
@@ -1174,7 +1188,7 @@ function AboutMe() {
               <em className="italic text-[#2F9E6E]">还有舞台</em>
             </h2>
             <p className="text-[#4D4D4D] text-sm leading-relaxed mb-5" style={{ fontFamily: "DM Sans, sans-serif" }}>
-              曾任清华大学 DK5s 街舞社社长、艺术团街舞队队长。任内课程体量增长 1.6 倍，全年开课 150+ 场、覆盖 8 大舞种、服务 6400+ 人次；主持社团 10 周年专场《拾光之旅》——筹备近一年、集结 104 名演员、吸引 900+ 观众，是建社以来首次专场演出。
+              曾任清华大学 DK5s 街舞社社长、艺术团街舞队队长。任内课程体量增长 1.6 倍，全年开课 150+ 场、覆盖 8 大舞种、服务 6400+ 人次；以总导演与总策划的身份操办社团 10 周年专场《拾光之旅》——筹备近一年，集结 104 名演员，吸引 900+ 观众，这也是建社以来首场专场演出。
             </p>
             <p className="text-[#4D4D4D] text-sm leading-relaxed mb-8" style={{ fontFamily: "DM Sans, sans-serif" }}>
               舞台让我理解节奏、现场感和团队协作。这些东西渗透进了我做产品的方式里——对节奏的把控，对细节的执行，和在不确定中保持清醒。
