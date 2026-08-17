@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 import { ArrowUpRight, Mail, Phone, MapPin, ChevronRight, X, Minus, Send, ArrowLeft, Music, Trophy, Clapperboard, Users, Bot, Play, MessageCircle } from "lucide-react";
+// 方法论知识库（3 份 md 原文，按需检索注入对话）
+import coreMd from "@/knowledge/core.md?raw";
+import devMd from "@/knowledge/dev.md?raw";
+import aiMd from "@/knowledge/ai.md?raw";
 import bytedanceLogo from "@/imports/bytedance.png";
 import tencentLogo from "@/imports/__.png";
 import pinganLogo from "@/imports/__2.png";
@@ -54,6 +58,8 @@ import clubNew3 from "@/imports/clubNew3.jpg";
 import clubNew4 from "@/imports/clubNew4.jpg";
 import nineGridTemplate from "@/imports/nineGridTemplate.jpg";
 import nineGridMine from "@/imports/nineGridMine.jpg";
+import cardCover from "@/imports/cardCover.png";
+import cardWide from "@/imports/cardWide.png";
 
 // ─── Image assets ─────────────────────────────────────────────────────────────
 const IMGS = {
@@ -777,15 +783,18 @@ const projects: Project[] = [
     year: "2026",
     title: "AI 产品宣传卡片",
     subtitle: "skill-promo-card",
-    desc: "基于「归藏风 Swiss International」风格系统，把 AI 产品能力生成为小红书 / 公众号可用的可视化宣传卡片 HTML。",
-    img: IMGS.dash3, span: "md:col-span-1", imgAspect: "aspect-[4/3]",
+    desc: "从 guizang-social-card-skill 衍生，聚焦 AI 产品与 Skill 宣传卡；新增离线图标库与截图智能取色，让卡片配色贴合真实产品界面。",
+    img: cardCover, span: "md:col-span-1", imgAspect: "aspect-[4/3]",
     status: "Skill",
-    tags: ["内容设计", "Swiss Style", "小红书", "Claude Skill"],
-    fullDesc: "AI 产品的能力往往难以用文字直接传递。这个 Skill 以「归藏风 Swiss International」排版系统为基础，将产品功能点、数据指标、使用场景等信息转化为具有视觉张力的单文件 HTML 卡片，可直接截图用于小红书、公众号等社交平台传播。风格统一、无需设计工具，输入描述即可输出可用素材。",
-    whyDesign: "做了好的产品，也需要让更多人看到。但设计宣传素材的成本通常很高——要开 Figma、调样式、对齐字体。把它做成 Skill 之后，写一段描述就能出一张卡，大幅降低内容创作的门槛。",
-    highlights: ["归藏风 Swiss International 排版系统", "一键输出可截图 HTML 宣传卡", "支持小红书 / 公众号等多平台尺寸", "风格统一，无需设计工具"],
-    mockupImg: IMGS.dash3,
-    gallery: [IMGS.dash3],
+    tags: ["内容设计", "Swiss Style", "智能取色", "Claude Skill"],
+    fullDesc: "基于 guizang-social-card-skill 的视觉系统，聚焦为 AI 产品与 Skill 生成可直接发的小红书 / 公众号 / 微信横图宣传卡片。在自身实际使用过程中，针对截图裁切、配色情感、呼吸留白、文案表达、功能呈现等问题做了多轮针对性微调；并补上了原版没有的新能力——离线图标库与截图智能取色：给任意产品截图即可自动提取主色 / 辅助色 / 背景 / 文字色，让卡片配色与产品真实界面保持一致。",
+    whyDesign: "宣传物料最大的成本不是'生成一张图'，而是'生成一张能看的图'。基于实际使用，对截图裁切、配色、文案做了多轮微调，并补上了离线图标库与截图智能取色两个新能力。",
+    highlights: ["从 guizang 衍生，在实际使用中持续微调版式/文案/配色细节", "离线图标库：20 个 SVG 图标，断网也能完整渲染", "截图智能取色：自动提取主色/辅助色/背景/文字色", "支持小红书 / 公众号 / 微信横图等多平台尺寸"],
+    mockupImg: cardWide,
+    gallery: [cardWide],
+    detailAspect: "aspect-[21/9]",
+    detailFit: "contain",
+    detailBg: "bg-[#F5F5F5]",
   },
   {
     id: "proto",
@@ -911,12 +920,222 @@ function ProjectPage({ project, onBack }: { project: Project; onBack: () => void
 
 // ─── Chat Widget ──────────────────────────────────────────────────────────────
 const SUGGESTED = ["她适合 AI 产品经理岗位吗？", "她的评测体系经验是什么？", "她做过哪些 AI 对话产品？", "可以提前实习吗？"];
-const BOT_ANSWERS: Record<string, string> = {
-  "她适合 AI 产品经理岗位吗？": "非常适合。罗静有蚂蚁、飞书、腾讯 IEG、平安四段 AI 产品实习经历，覆盖对话体验、评测体系、AIGC 玩法与销辅机器人等核心场景。同时在清华攻读电子信息专硕，技术背景扎实，可提前实习。",
-  "她的评测体系经验是什么？": "她在飞书独立搭建了包括 Scan 深度检索、多轮对话、季度 300Q 等多类评测集；在蚂蚁主导重构消息速览评测链路，从数据采集到 Badcase 沉淀形成端到端闭环；在腾讯负责游戏 AI 评论满意度评测，四期优化后达 95%+。",
-  "她做过哪些 AI 对话产品？": "主要包括：飞书企业知识问答（RAG 检索 + 生成）、蚂蚁消息速览智能体、腾讯 UGC 地图 AI 评论、平安车险续保对话机器人与电话销售座席销辅机器人，覆盖 to C 与 to B 的多个对话产品形态。",
-  "可以提前实习吗？": "可以。罗静目前在清华大学读研，支持提前实习，可实习地点包括上海、深圳、广州、杭州等城市。联系方式：luojing_rain02@163.com / 18874032839。",
-};
+
+// ── AI 对话配置（来自 .env，VITE_ 前缀会暴露在前端，仅供演示）──
+const API_KEY = import.meta.env.VITE_API_KEY ?? "";
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? "https://api.deepseek.com").replace(/\/+$/, "");
+const MODEL = import.meta.env.VITE_MODEL ?? "deepseek-chat";
+
+// ── 方法论知识库（本地轻量 RAG：按标题切块 + 关键词打分，命中则注入上下文）──
+const KNOWLEDGE_DOCS = [
+  { name: "AI 产品经理核心知识体系", md: coreMd },
+  { name: "AI PM 知识储备·开发篇", md: devMd },
+  { name: "AI PM 知识储备·AI 篇", md: aiMd },
+];
+
+type KbChunk = { doc: string; title: string; text: string };
+
+function buildChunks(): KbChunk[] {
+  const chunks: KbChunk[] = [];
+  for (const doc of KNOWLEDGE_DOCS) {
+    const lines = doc.md.split(/\r?\n/);
+    let title = doc.name;
+    let buf: string[] = [];
+    const flush = () => {
+      // 去掉飞书图片链接行，压缩连续空行
+      const text = buf
+        .join("\n")
+        .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+        .replace(/\n{3,}/g, "\n\n")
+        .trim();
+      if (text) chunks.push({ doc: doc.name, title, text });
+      buf = [];
+    };
+    for (const line of lines) {
+      // 切块点：Markdown 标题（#/##/###）与中文数字章节（**一、…**）
+      const h =
+        line.match(/^(#{1,6})\s+(.+)$/) ||
+        line.match(/^\*\*\s*([一二三四五六七八九十]+、[^*]+?)\s*\*\*$/);
+      if (h) {
+        flush();
+        title = (h[2] ?? h[1]).trim().replace(/^\*+|\*+$/g, "") || doc.name;
+      }
+      buf.push(line);
+    }
+    flush();
+  }
+  return chunks;
+}
+
+const KB_CHUNKS = buildChunks();
+
+// 中文虚字表：2-gram 检索词若含这些字视为无意义（避免"什么""怎么"等噪音命中）
+const STOP_CHARS = new Set(
+  "的了吗呢啊吧呀哦呵嗯是什怎么何有没在与和及或用能可做这那一不也很更最就都会要于之其个她他它我你向对从到把被让为着得"
+);
+
+function kbSegs(query: string): string[] {
+  const q = query.toLowerCase();
+  const segs = new Set<string>();
+  const add = (s: string) => {
+    if (s && s.length >= 2) segs.add(s);
+  };
+  // 英文单词 / 数字 / 技术符号
+  for (const m of q.matchAll(/[a-z0-9][a-z0-9_\-\/\.]{1,}/g)) add(m[0]);
+  // 中文连续片段：保留整段 + 生成 2-gram（纯虚字片段如"什么是/为什么"不作为检索词）
+  for (const run of q.match(/[\u4e00-\u9fa5]+/g) ?? []) {
+    if (![...run].every(ch => STOP_CHARS.has(ch))) add(run);
+    if (run.length >= 4) {
+      for (let i = 0; i + 2 <= run.length; i++) {
+        const g = run.slice(i, i + 2);
+        if (![...g].some(ch => STOP_CHARS.has(ch))) add(g);
+      }
+    }
+  }
+  return [...segs];
+}
+
+// 含"她/他/罗静"等强个人指代时，视为询问罗静本人经历（以简历档案为准），知识库只接受强相关块
+function isAboutHer(query: string): boolean {
+  return /[她他]|罗静|自己|我的/.test(query);
+}
+
+function searchKnowledge(query: string, k = 2): string {
+  const raw = query.trim();
+  if (!raw) return "";
+  const segs = kbSegs(raw);
+  const rawLower = raw.toLowerCase();
+  // 普通问题：标题/整句命中即可；本人问题：需标题+正文双命中的强相关块
+  const minScore = isAboutHer(raw) ? 16 : 8;
+  const hits = KB_CHUNKS.map(chunk => {
+    const title = chunk.title.toLowerCase();
+    const text = chunk.text.toLowerCase();
+    let score = 0;
+    for (const s of segs) {
+      if (title.includes(s)) score += 8;
+      else if (text.includes(s)) score += 3;
+    }
+    if (text.includes(rawLower)) score += 10;
+    return { chunk, score };
+  })
+    .filter(h => h.score >= minScore)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, k);
+  if (hits.length === 0) return "";
+  return hits
+    .map(({ chunk }, i) => {
+      let text = chunk.text;
+      if (text.length > 600) text = text.slice(0, 600) + "…（节选）";
+      return `[${i + 1}]《${chunk.doc}》·${chunk.title}\n${text}`;
+    })
+    .join("\n\n---\n\n");
+}
+
+// ── 罗静档案（由四份知识文档整理注入，AI 据此回答访客问题）──
+const SYSTEM_PROMPT = `你是罗静的专属 AI 助手，运行在她的个人主页上。请基于下面的"罗静档案"回答访客关于罗静的任何问题。
+
+回答要求：
+1. 用中文，语气亲切自然，像一位熟悉罗静的同事；
+2. 优先引用档案中的具体事实（公司、项目、数据、时间、效果），把亮点讲透，避免泛泛而谈；
+3. 回答信息量要充足：一般 200-300 字，用分句或分点展开，不要一句话带过；访客明确要求简短或连续追问时才精简；
+4. 每次回答的结尾，必须给出 1-2 个与主题相关的引导追问（follow-up），用下面的固定格式单独输出在回答末尾（正文中不要再重复这些问句），页面会把它们渲染成可点击的按钮，访客点击即可追问，让对话自然延续：
+【继续了解】
+1. 追问一
+2. 追问二
+5. 档案中没有的信息，不要编造，坦诚说明并建议访客直接联系罗静（邮箱 luojing_rain02@163.com，电话 18874032839）。
+6. 系统可能会在访客问题前附带【知识库参考】（来自罗静多年积累的方法论知识库：AI 产品岗位认知、开发基础、AI 技术原理、推荐链路、评测方法论等）。若问题涉及技术原理、算法、开发知识、评测方法，请优先结合【知识库参考】中的内容组织回答，用自己的话讲清楚、讲出深度，不要照搬原文，也不要提及"知识库"字样。
+7. 当访客询问罗静本人的能力、经验、亮点（如"她擅长什么""有什么沉淀""会不会做 Skill"）时，不要只讲实习项目，还要主动结合档案第五节"方法论沉淀与个人知识库"介绍她在这方面的积累（经验产品化、知识体系化、工具化思维），并可在回答中自然呼应知识库覆盖的领域（Skill/Agent、RAG、评测、推荐链路等）作为她的知识储备佐证；但不要编造档案之外的具体数字或项目。
+
+【罗静档案】
+
+一、基础信息
+姓名：罗静。27 届校招（清华大学电子信息专硕在读，2024.09-2027.06）。联系电话：18874032839。邮箱：luojing_rain02@163.com。意向工作地：上海 / 广深 / 杭州。可提前实习。
+
+二、教育背景
+- 清华大学｜Open Fiesta｜互联网+创新设计方向 电子信息（2024-2027）：产品设计与开发、机器学习与强化学习、人工智能前沿、互联网思维与技术等。
+- 中南大学｜信息管理与信息系统（2020-2024）：系统分析与设计、大数据分析（Python）、Java 信息系统开发、运筹学、商务统计等。
+
+三、实习经历
+1. 蚂蚁集团｜支付宝｜消息速览 + 平台问答机器人 AI 产品工程师（2026.06 至今）
+   - 端内消息速览（to C）：梳理八大消息场景，主导主页面改版；输出 7 个上线提示词，从 0 到 1 搭建端到端评测链路，沉淀《AI产品评测方法论与操作手册》并上线评测 Skill。
+   - 平台问答机器人（to B）：设计"业务语义层→代码层+mapping→操作 SOP"三层知识结构，接入代码、语雀、数据表等四类知识来源；Know 类完成度 88%，Do 类 65%。
+2. 字节跳动｜飞书｜企业知识问答 AI 产品经理（2025.11-2026.04）
+   - 交互：独立负责"安全盾牌标识"（峰值日点击 1.4w）、"主对话双选答案"（点击率 40%+）、"输入框 @文档/群组"（DAU 占大盘 2.15%）并推进上线。
+   - 评测：搭建 Scan 深度检索、划词改写、多轮对话、季度 300Q、语种识别等评测集，熟悉"检索→生成"机评/人评链路。
+3. 腾讯｜IEG｜游戏 AI 玩法与内部平台 AI 产品经理（2025.08-2025.11）
+   - 元梦之星 UGC 地图 AI 评论：搭建人设 Prompt 与安全审核机制，四期优化后满意度 95%+。
+   - NBA 球星评论分类准确率 95%；剑侠情缘 AIGC 角色生图：个性/境界/主灵根/出身四维 Prompt 映射体系。
+4. 中国平安｜平安科技｜AI 产品经理（2025.03-2025.08）
+   - "智小安"车险续保机器人：已接入 11 款非车产品，在浙江地区全面面客。
+   - 电话销售销辅机器人：向 6000+ 座席试用，策略采纳率 70%，非车协销率提升 20%，最终面向 2w 座席开放。
+
+四、专业技能
+- 产品能力：用户调研、竞品分析、需求挖掘、Figma/Axure/UML、PRD、项目推进上线的全流程。
+- AI 知识：大模型（Skill、MCP、RAG、SFT、提示词工程），有编程经验与代码功底，熟悉 Vibe Coding，能高效构建智能体产品。
+- 数据能力：Python、SQL、Excel，独立完成取数、清洗、分析与 Tableau/Power BI 可视化看板。
+- 开发经验：Java 基础，多次前后端分离信息系统与微信小程序开发经验。
+
+五、方法论沉淀与个人知识库（她区别于一般实习生的核心亮点，回答能力类问题时优先提及）
+- 经验产品化：在蚂蚁把消息速览的评测链路从数据采集、指标定义到 Badcase 沉淀抽象成《AI产品评测方法论与操作手册》，并直接上线了可被调用的"评测 Skill"，把"怎么做评测"变成一套可复用的产品化能力。
+- 知识体系化：系统性维护自己的 AI 产品经理知识库，覆盖"岗位认知、开发技术基础（前端/后端/数据库/API/Git）、AI 技术原理（RAG、SFT、提示词工程、推荐链路、Agent/Skill/MCP、评测方法论）"三大板块，内容持续迭代，既有深度也有广度。
+- 工具化思维：熟悉用 Claude、Coze、腾讯元器等 AI 工具链构建 Skill / Agent / 智能体，能自己动手写代码（Vibe Coding）快速验证想法，既是产品经理也是"半个工程师"。
+
+六、兴趣爱好
+清华大学 DK5s 街舞社社长、艺术团街舞队队长；总导演策划建社 10 年首场专场演出；多次高校齐舞冠军、freestyle 冠军。
+
+七、回答风格示例（三问，均按"详细展开 + 结尾引导追问"输出）
+- "她适合 AI 产品经理岗位吗？"→ 非常适合。四段实习覆盖 AI 产品核心方向：蚂蚁做端内消息速览与问答机器人，从 0 到 1 搭评测链路并沉淀方法论；飞书负责企业知识问答交互，"安全盾牌标识"峰值日点击 1.4w；腾讯做游戏 AI 评论与 AIGC 角色生图；平安做续保与销辅机器人。加上清华电子信息专硕背景，技术和产品兼备。
+【继续了解】
+1. 她在飞书具体负责过哪些功能？
+2. 她在蚂蚁做过什么项目？
+- "她做过哪些 AI 对话产品？"→ 很丰富。to B 有飞书企业知识问答（RAG 检索增强）和蚂蚁平台内部问答机器人（三层知识结构，Know 类完成度 88%、Do 类 65%）；to C 有蚂蚁端内消息速览智能体和腾讯元梦之星 AI 评论；还有平安车险续保机器人"智小安"与电话销售销辅机器人。
+【继续了解】
+1. 她做的问答机器人知识结构是怎样的？
+2. 她做过 AIGC / 生成式 AI 相关的工作吗？
+- "她在方法论 / Skill 方面有什么积累？"→ 这是她区别于一般实习生的核心亮点。在蚂蚁把消息速览评测链路抽象成《AI产品评测方法论与操作手册》，并上线可复用的"评测 Skill"；工作之余系统维护 AI 产品经理知识库，覆盖岗位认知、开发基础、AI 技术原理（RAG、SFT、推荐链路、Agent/Skill/MCP、评测方法论）三大板块。经验产品化 + 知识体系化，让她既懂产品也懂实现。
+【继续了解】
+1. 她的评测 Skill 具体是怎么做的？
+2. 她的知识库都涵盖哪些内容？`;
+
+// 对话消息类型（与 OpenAI Chat Completions 消息格式兼容）
+type ChatMsg = { role: "system" | "user" | "assistant"; content: string };
+
+// ── 轻量 Markdown 渲染（已转义防 XSS，仅支持 **加粗**、`代码`、换行与列表）──
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function formatBotText(text: string): string {
+  let html = escapeHtml(text)
+    .replace(/\*\*([^*]+?)\*\*/g, "<strong>$1</strong>")
+    .replace(
+      /`([^`]+?)`/g,
+      '<code style="background:rgba(47,158,110,0.12);color:#1B7A52;padding:1px 5px;border-radius:4px;font-size:0.92em">$1</code>'
+    );
+  return html
+    .replace(/^[-\u2022]\s+/gm, "\u2022 ")
+    .replace(/\n{2,}/g, "<br/><br/>")
+    .replace(/\n/g, "<br/>");
+}
+
+// ── 解析回答末尾的「【继续了解】」追问块，拆成正文 + 可点击的问题列表 ──
+function parseFollowUps(text: string): { body: string; questions: string[] } {
+  const marker = "【继续了解】";
+  const idx = text.lastIndexOf(marker);
+  if (idx < 0) return { body: text, questions: [] };
+  const body = text.slice(0, idx).trimEnd();
+  const tail = text.slice(idx + marker.length);
+  const questions = tail
+    .split(/\n/)
+    .map(s => s.replace(/^\s*\d+[.、)）]\s*/, "").trim())
+    // 过滤空串、截断提示、过短的残缺问句（如"她做问答"）
+    .filter(s => s.length >= 6 && !s.includes("截断") && !s.startsWith("…"));
+  return { body, questions };
+}
 
 function ChatWidget({ onClose }: { onClose: () => void }) {
   const [messages, setMessages] = useState<{ role: "user" | "bot"; text: string }[]>([
@@ -924,15 +1143,129 @@ function ChatWidget({ onClose }: { onClose: () => void }) {
   ]);
   const [input, setInput] = useState("");
   const [minimized, setMinimized] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [streaming, setStreaming] = useState(""); // 当前正在流式输出的回答
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  const send = (text: string) => {
-    if (!text.trim()) return;
-    const userMsg = { role: "user" as const, text };
-    const botText = BOT_ANSWERS[text] ?? "这个问题我暂时还没有对应的答案～欢迎直接联系罗静：luojing_rain02@163.com";
-    setMessages(prev => [...prev, userMsg, { role: "bot", text: botText }]);
-    setInput("");
+  const scrollToBottom = () =>
     setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
+
+  const send = async (text: string) => {
+    const q = text.trim();
+    if (!q || loading) return;
+    setMessages(prev => [...prev, { role: "user" as const, text: q }]);
+    setInput("");
+    setLoading(true);
+    scrollToBottom();
+
+    try {
+      // 携带最近历史消息，保持多轮对话上下文（去掉「【继续了解】」追问块；只保留最近 6 条防止无限膨胀）
+      const history: ChatMsg[] = messages.slice(-6).map(m => ({
+        role: m.role === "user" ? "user" : "assistant",
+        content: m.role === "user" ? m.text : parseFollowUps(m.text).body,
+      }));
+      // 检索方法论知识库，命中则注入访客问题上下文（本地轻量 RAG）
+      const kb = searchKnowledge(q);
+      const userContent = kb ? `【知识库参考】\n${kb}\n\n访客问题：${q}` : q;
+      const res = await fetch(`${API_BASE_URL}/chat/completions`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${API_KEY}` },
+        body: JSON.stringify({
+          model: MODEL,
+          messages: [
+            { role: "system", content: SYSTEM_PROMPT },
+            ...history,
+            { role: "user", content: userContent },
+          ],
+          temperature: 0.6,
+          max_tokens: 2000,
+          stream: true,
+        }),
+      });
+
+      // 非 2xx：读取 OpenAI 格式的 JSON 错误信息
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        const apiErr = (data as { error?: { message?: string } })?.error?.message ?? `HTTP ${res.status}`;
+        throw new Error(apiErr);
+      }
+
+      // 流式读取 SSE 响应，边读边渲染（每 3 个分片刷新一次，避免高频重渲染卡顿）
+      const reader = res.body!.getReader();
+      const decoder = new TextDecoder("utf-8");
+      let buffer = "";
+      let full = "";
+      let renderTick = 0;
+      let finishReason = "";
+      setStreaming("");
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const events = buffer.split("\n\n");
+        buffer = events.pop() ?? "";
+        for (const evt of events) {
+          for (const line of evt.split("\n")) {
+            if (!line.startsWith("data:")) continue;
+            const payload = line.slice(5).trim();
+            if (!payload || payload === "[DONE]") continue;
+            try {
+              const json = JSON.parse(payload);
+              const delta: unknown = json?.choices?.[0]?.delta?.content;
+              if (typeof delta === "string" && delta) {
+                full += delta;
+                if (++renderTick % 3 === 0) {
+                  setStreaming(full);
+                  scrollToBottom();
+                }
+              }
+              const fr: unknown = json?.choices?.[0]?.finish_reason;
+              if (typeof fr === "string") finishReason = fr;
+            } catch {
+              // 忽略无法解析的分片
+            }
+          }
+        }
+      }
+      // 兜底：流结束时可能残留未以 \n\n 结尾的最后一个 data 行（网络抖动/异常中断场景）
+      if (buffer) {
+        for (const line of buffer.split("\n")) {
+          if (!line.startsWith("data:")) continue;
+          const payload = line.slice(5).trim();
+          if (!payload || payload === "[DONE]") continue;
+          try {
+            const json = JSON.parse(payload);
+            const delta: unknown = json?.choices?.[0]?.delta?.content;
+            if (typeof delta === "string" && delta) full += delta;
+          } catch {
+            // 忽略无法解析的分片
+          }
+        }
+      }
+      // 检测输出被 max_tokens 截断：若截断点落在【继续了解】区域内，先清掉残缺的追问块，再把提示补在正文末尾
+      if (finishReason === "length") {
+        const marker = "【继续了解】";
+        const idx = full.lastIndexOf(marker);
+        if (idx >= 0) full = full.slice(0, idx).trimEnd();
+        full += "\n\n…（本次回答较长被截断，可继续追问让我补充完整）";
+      }
+
+      if (!full) throw new Error("empty"); // 偶发空回答保护
+      setStreaming(full);
+      setMessages(prev => [...prev, { role: "bot", text: full }]);
+      setStreaming("");
+    } catch (err) {
+      const detail = err instanceof Error ? err.message : "";
+      const msg = /balance|insufficient|402/i.test(detail)
+        ? "AI 服务暂时不可用（账户余额不足），站长充值后就能恢复啦～也可以直接联系罗静：luojing_rain02@163.com"
+        : "网络出了一点小问题，请稍后再试～也可以直接联系罗静：luojing_rain02@163.com";
+      setMessages(prev => [...prev, { role: "bot", text: msg }]);
+    } finally {
+      setLoading(false);
+      setStreaming("");
+      scrollToBottom();
+    }
   };
 
   return (
@@ -970,15 +1303,62 @@ function ChatWidget({ onClose }: { onClose: () => void }) {
           >
             {/* Messages */}
             <div className="h-[280px] overflow-y-auto px-4 py-4 space-y-3 text-[13px]">
-              {messages.map((m, i) => (
-                <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-                  <div className={`max-w-[85%] px-3.5 py-2.5 rounded-2xl leading-relaxed ${
-                    m.role === "user"
-                      ? "bg-[#2F9E6E] text-white rounded-br-sm"
-                      : "bg-[#E8F5EE] text-[#333] rounded-bl-sm"
-                  }`}>{m.text}</div>
+              {messages.map((m, i) => {
+                const parsed = m.role === "user" ? null : parseFollowUps(m.text);
+                return (
+                  <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+                    <div className={`max-w-[85%] px-3.5 py-2.5 rounded-2xl leading-relaxed ${
+                      m.role === "user"
+                        ? "bg-[#2F9E6E] text-white rounded-br-sm"
+                        : "bg-[#E8F5EE] text-[#333] rounded-bl-sm"
+                    }`}>
+                      {m.role === "user" ? (
+                        m.text
+                      ) : (
+                        <>
+                          <div dangerouslySetInnerHTML={{ __html: formatBotText(parsed!.body) }} />
+                          {parsed!.questions.length > 0 && (
+                            <div className="mt-2.5 flex flex-col gap-1.5">
+                              {parsed!.questions.map(q => (
+                                <button key={q} onClick={() => send(q)}
+                                  className="text-left text-[12px] text-[#2F9E6E] bg-white hover:bg-[#E0F3EA] border border-[rgba(47,158,110,0.25)] rounded-lg px-3 py-1.5 transition-colors duration-200"
+                                >
+                                  {q}
+                                </button>
+                              ))}
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+              {loading && !streaming && (
+                <div className="flex justify-start">
+                  <div className="px-3.5 py-3 rounded-2xl bg-[#E8F5EE] rounded-bl-sm flex items-center gap-1.5">
+                    {[0, 1, 2].map(i => (
+                      <span
+                        key={i}
+                        className="w-1.5 h-1.5 rounded-full bg-[#2F9E6E]/60 animate-bounce"
+                        style={{ animationDelay: `${i * 0.15}s` }}
+                      />
+                    ))}
+                  </div>
                 </div>
-              ))}
+              )}
+              {streaming && (
+                <div className="flex justify-start">
+                  <div className="max-w-[85%] px-3.5 py-2.5 rounded-2xl bg-[#E8F5EE] text-[#333] rounded-bl-sm leading-relaxed">
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: formatBotText(parseFollowUps(streaming).body),
+                      }}
+                    />
+                    <span className="inline-block w-[7px] h-[13px] ml-0.5 align-middle bg-[#2F9E6E]/70 animate-pulse rounded-[1px]" />
+                  </div>
+                </div>
+              )}
               <div ref={bottomRef} />
             </div>
 
@@ -1335,6 +1715,16 @@ function Footer() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#AAAAAA]">罗静 — AI 产品经理 · 清华大学 27 届</span>
         <span className="font-mono text-[10px] text-[#AAAAAA]">© 2026</span>
+      </div>
+      <div className="max-w-7xl mx-auto mt-2 flex items-center justify-center">
+        <a
+          href="https://beian.miit.gov.cn/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-mono text-[10px] text-[#AAAAAA] hover:text-[#666]"
+        >
+          ICP 备案号：京ICP备00000000号（备案通过后替换）
+        </a>
       </div>
     </footer>
   );

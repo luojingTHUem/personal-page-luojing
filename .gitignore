@@ -1,5 +1,8 @@
 node_modules/
 dist/
+dist_old*/
+deploy-dist/
+deploy/
 .codebuddy/
 .guidelines/
 guidelines/
@@ -7,3 +10,10 @@ guidelines/
 .DS_Store
 Thumbs.db
 *.log
+ds_test.mjs
+kb_test.mjs
+
+# 本地环境变量（含 API Key，禁止提交）
+.env
+.env.*
+!.env.example
