@@ -1732,12 +1732,44 @@ function Footer() {
 
 // ─── App ──────────────────────────────────────────────────────────────────────
 export default function App() {
-  const [currentProject, setCurrentProject] = useState<Project | null>(null);
+  // 初始状态直接读 URL（/?project=id），刷新或分享链接能直达详情页
+  const [currentProject, setCurrentProject] = useState<Project | null>(() => {
+    const pid = new URLSearchParams(window.location.search).get("project");
+    return pid ? (projects.find(x => x.id === pid) ?? null) : null;
+  });
   const [chatOpen, setChatOpen] = useState(false);
 
-  const goHome = () => {
-    setCurrentProject(null);
+  // 监听浏览器前进/后退，URL 与详情页状态保持同步
+  useEffect(() => {
+    const syncFromUrl = () => {
+      const pid = new URLSearchParams(window.location.search).get("project");
+      setCurrentProject(pid ? (projects.find(x => x.id === pid) ?? null) : null);
+      if (pid) window.scrollTo(0, 0);
+    };
+    window.addEventListener("popstate", syncFromUrl);
+    return () => window.removeEventListener("popstate", syncFromUrl);
+  }, []);
+
+  const openProject = (p: Project) => {
+    setCurrentProject(p);
     window.scrollTo(0, 0);
+    const url = new URL(window.location.href);
+    url.searchParams.set("project", p.id);
+    window.history.pushState({ fromSite: true }, "", url);
+  };
+
+  const goHome = () => {
+    if (window.history.state?.fromSite) {
+      // 由站内 pushState 进入：走浏览器回退，popstate 会自动关闭详情页
+      window.history.back();
+    } else {
+      // 直接加载带 project 参数的 URL：站内没有历史记录，原地替换回主页
+      const url = new URL(window.location.href);
+      url.searchParams.delete("project");
+      window.history.replaceState(null, "", url);
+      setCurrentProject(null);
+      window.scrollTo(0, 0);
+    }
   };
 
   if (currentProject) {
@@ -1762,7 +1794,7 @@ export default function App() {
         <Education />
         <InternshipMap />
         <Experience />
-        <SelectedWork onProjectClick={setCurrentProject} />
+        <SelectedWork onProjectClick={openProject} />
         <Skills />
         <AboutMe />
         <Contact />
