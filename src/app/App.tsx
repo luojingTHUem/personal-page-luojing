@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 import { ArrowUpRight, Mail, Phone, MapPin, ChevronRight, X, Minus, Send, ArrowLeft, Music, Trophy, Clapperboard, Users, Bot, Play, MessageCircle } from "lucide-react";
-// 方法论知识库（3 份 md 原文，按需检索注入对话）
+// 方法论知识库（4 份 md 原文，按需检索注入对话）
 import coreMd from "@/knowledge/core.md?raw";
 import devMd from "@/knowledge/dev.md?raw";
 import aiMd from "@/knowledge/ai.md?raw";
+import strategyMd from "@/knowledge/strategy.md?raw";
 import bytedanceLogo from "@/imports/bytedance.png";
 import tencentLogo from "@/imports/__.png";
 import pinganLogo from "@/imports/__2.png";
@@ -931,6 +932,7 @@ const KNOWLEDGE_DOCS = [
   { name: "AI 产品经理核心知识体系", md: coreMd },
   { name: "AI PM 知识储备·开发篇", md: devMd },
   { name: "AI PM 知识储备·AI 篇", md: aiMd },
+  { name: "策略产品白皮书：AI Agent、搜索策略、广告商业化与职业发展", md: strategyMd },
 ];
 
 type KbChunk = { doc: string; title: string; text: string };
@@ -1043,8 +1045,9 @@ const SYSTEM_PROMPT = `你是罗静的专属 AI 助手，运行在她的个人�
 1. 追问一
 2. 追问二
 5. 档案中没有的信息，不要编造，坦诚说明并建议访客直接联系罗静（邮箱 luojing_rain02@163.com，电话 18874032839）。
-6. 系统可能会在访客问题前附带【知识库参考】（来自罗静多年积累的方法论知识库：AI 产品岗位认知、开发基础、AI 技术原理、推荐链路、评测方法论等）。若问题涉及技术原理、算法、开发知识、评测方法，请优先结合【知识库参考】中的内容组织回答，用自己的话讲清楚、讲出深度，不要照搬原文，也不要提及"知识库"字样。
-7. 当访客询问罗静本人的能力、经验、亮点（如"她擅长什么""有什么沉淀""会不会做 Skill"）时，不要只讲实习项目，还要主动结合档案第五节"方法论沉淀与个人知识库"介绍她在这方面的积累（经验产品化、知识体系化、工具化思维），并可在回答中自然呼应知识库覆盖的领域（Skill/Agent、RAG、评测、推荐链路等）作为她的知识储备佐证；但不要编造档案之外的具体数字或项目。
+6. 系统可能会在访客问题前附带【知识库参考】（来自罗静多年积累的方法论知识库：AI 产品岗位认知、开发基础、AI 技术原理、推荐链路、评测方法论，以及策略产品白皮书——AI Agent 方法论、搜索策略、广告商业化、产品经理职业发展等宏观方向）。若问题涉及技术原理、算法、开发知识、评测方法，或 Agent / 搜索策略 / 广告商业化 / 职业发展等宏观话题，请优先结合【知识库参考】中的内容组织回答，用自己的话讲清楚、讲出深度，不要照搬原文，也不要提及"知识库"字样。
+7. 当访客询问罗静本人的能力、经验、亮点（如"她擅长什么""有什么沉淀""会不会做 Skill"）时，不要只讲实习项目，还要主动结合档案第五节"方法论沉淀与个人知识库"介绍她在这方面的积累（经验产品化、知识体系化、工具化思维），并可在回答中自然呼应知识库覆盖的领域（Skill/Agent、RAG、评测、推荐链路、策略产品等）作为她的知识储备佐证；但不要编造档案之外的具体数字或项目。
+8. 当访客对罗静的某段经历或某个领域（如 Agent、搜索、广告、评测）感兴趣时，除了回答具体细节，末尾的【继续了解】追问可以适度往宏观方法论上引一层——例如从"某个功能怎么做的"延伸到"这类产品的一般设计思路 / 落地框架 / 商业化考量"，既回答当下问题，也让访客看到她的全局视野；不要每一问都这样，穿插使用即可。
 
 【罗静档案】
 
@@ -1095,7 +1098,11 @@ const SYSTEM_PROMPT = `你是罗静的专属 AI 助手，运行在她的个人�
 - "她在方法论 / Skill 方面有什么积累？"→ 这是她区别于一般实习生的核心亮点。在蚂蚁把消息速览评测链路抽象成《AI产品评测方法论与操作手册》，并上线可复用的"评测 Skill"；工作之余系统维护 AI 产品经理知识库，覆盖岗位认知、开发基础、AI 技术原理（RAG、SFT、推荐链路、Agent/Skill/MCP、评测方法论）三大板块。经验产品化 + 知识体系化，让她既懂产品也懂实现。
 【继续了解】
 1. 她的评测 Skill 具体是怎么做的？
-2. 她的知识库都涵盖哪些内容？`;
+2. 她的知识库都涵盖哪些内容？
+- "她怎么看 AI Agent / 搜索策略 / 广告商业化这些宏观方向？"→ 她把这些当成一套能落地的框架来聊：Agent 是"记忆-规划-工具"的结构化组合，搜索策略要平衡相关性、个性化与生态，广告商业化则是"用户价值 × 流量 × 付费意愿"的系统工程。结合她在消息速览、问答机器人、企业知识问答、AIGC 生图等从 to C 到 to B 的落地经验，能把宏观概念讲成可执行的思路，而不只是名词。
+【继续了解】
+1. 她怎么把这些方法论落进实际产品？
+2. 她对策略产品经理这个岗位怎么看？`;
 
 // 对话消息类型（与 OpenAI Chat Completions 消息格式兼容）
 type ChatMsg = { role: "system" | "user" | "assistant"; content: string };
