@@ -6,6 +6,7 @@ import coreMd from "@/knowledge/core.md?raw";
 import devMd from "@/knowledge/dev.md?raw";
 import aiMd from "@/knowledge/ai.md?raw";
 import strategyMd from "@/knowledge/strategy.md?raw";
+import protoReadme from "@/knowledge/proto-readme.md?raw";
 import bytedanceLogo from "@/imports/bytedance.png";
 import tencentLogo from "@/imports/__.png";
 import pinganLogo from "@/imports/__2.png";
@@ -739,6 +740,7 @@ interface Project {
   id: string; cat: string; year: string; title: string; subtitle: string; desc: string;
   img: string; span: string; imgAspect: string; imgPosition?: string; status: "已上线" | "开发中" | "Skill";
   tags: string[]; fullDesc: string; whyDesign: string; highlights: string[]; mockupImg: string; gallery?: string[];
+  readme?: string;
   detailAspect?: string; detailFit?: "cover" | "contain"; detailBg?: string;
 }
 
@@ -758,6 +760,23 @@ const projects: Project[] = [
     highlights: ["5 大数据源自动采集（语雀 / 钉钉 / CodeFuse / 本地 / 手动）", "AI 待办提取 + AI 周报月报 + 述职导出", "OKR 关联度自动计算与 7 天趋势", "零框架依赖，单文件 HTML + Node 脚本部署"],
     mockupImg: diaryHero,
     gallery: [diaryHero, diaryFeatures, diaryInput, diaryOutput, diaryOKR, diaryInfra],
+  },
+  {
+    id: "proto",
+    cat: "Skill · 原型",
+    year: "2026",
+    title: "原型转交互 Demo",
+    subtitle: "prototype-to-demo",
+    desc: "把 Figma / Axure / 手绘 / 截图等原型，通过 6 步工作流生产为可分享的单文件 HTML Demo，迭代逼近真实产品体验。",
+    img: protoCover, span: "md:col-span-1", imgAspect: "aspect-[4/3]", imgPosition: "top",
+    status: "Skill",
+    tags: ["原型还原", "HTML Demo", "像素级验证", "Claude Skill"],
+    fullDesc: "产品评审和用户测试中，静态原型图往往无法传达真实的交互感。这个 Skill 通过六步闭环（读原型与拆解动线 → 组件化搭建页面 → 资产分离与画布适配 → 实现自然交互 → 截图验证与视觉修正 → 打包与验收），将任意格式原型转化为可在浏览器中直接运行的单文件 HTML Demo。内置 20×20 网格像素级采样对比，实测还原度达 97.5%；单文件零依赖，拷贝到任何设备都能直接打开。",
+    whyDesign: "评审会上放一个能点击的 Demo，比展示静态截图效果好 10 倍。但把原型图转成代码通常需要几个小时。六步工作流把这个时间压缩到几分钟，让每次评审都能用上可交互的 Demo。更关键的是，用户调研阶段真实产品往往尚未开发完成，一个可点击的高保真 Demo 能让用户提前进入真实使用情境，获得更有代入感的反馈，而不是对着静态图凭空想象。",
+    highlights: ["支持 Figma / Axure / 截图 / 手绘稿等多格式输入", "六步工作流端到端自动化", "20×20 网格像素级采样验证，还原度 97.5%", "单文件 HTML 零依赖，分享即用"],
+    mockupImg: proto1,
+    gallery: [proto1, proto2, proto3],
+    readme: protoReadme,
   },
   {
     id: "eval",
@@ -796,22 +815,6 @@ const projects: Project[] = [
     detailAspect: "aspect-[21/9]",
     detailFit: "contain",
     detailBg: "bg-[#F5F5F5]",
-  },
-  {
-    id: "proto",
-    cat: "Skill · 原型",
-    year: "2026",
-    title: "原型转交互 Demo",
-    subtitle: "prototype-to-demo",
-    desc: "把 Figma / Axure / 手绘 / 截图等原型，通过 6 步工作流生产为可分享的单文件 HTML Demo，迭代逼近真实产品体验。",
-    img: protoCover, span: "md:col-span-1", imgAspect: "aspect-[4/3]", imgPosition: "top",
-    status: "Skill",
-    tags: ["原型还原", "HTML Demo", "像素级验证", "Claude Skill"],
-    fullDesc: "产品评审和用户测试中，静态原型图往往无法传达真实的交互感。这个 Skill 通过六步闭环（读原型与拆解动线 → 组件化搭建页面 → 资产分离与画布适配 → 实现自然交互 → 截图验证与视觉修正 → 打包与验收），将任意格式原型转化为可在浏览器中直接运行的单文件 HTML Demo。内置 20×20 网格像素级采样对比，实测还原度达 97.5%；单文件零依赖，拷贝到任何设备都能直接打开。",
-    whyDesign: "评审会上放一个能点击的 Demo，比展示静态截图效果好 10 倍。但把原型图转成代码通常需要几个小时。六步工作流把这个时间压缩到几分钟，让每次评审都能用上可交互的 Demo。更关键的是，用户调研阶段真实产品往往尚未开发完成，一个可点击的高保真 Demo 能让用户提前进入真实使用情境，获得更有代入感的反馈，而不是对着静态图凭空想象。",
-    highlights: ["支持 Figma / Axure / 截图 / 手绘稿等多格式输入", "六步工作流端到端自动化", "20×20 网格像素级采样验证，还原度 97.5%", "单文件 HTML 零依赖，分享即用"],
-    mockupImg: proto1,
-    gallery: [proto1, proto2, proto3],
   },
 ];
 
@@ -915,6 +918,18 @@ function ProjectPage({ project, onBack }: { project: Project; onBack: () => void
           </div>
         </div>
       </div>
+
+      {/* README 全文 */}
+      {project.readme && (
+        <section className="max-w-6xl mx-auto px-6 md:px-10 pb-20">
+          <div className="rounded-2xl border border-gray-200 bg-white px-7 py-9 md:px-12 md:py-12">
+            <div className="font-mono text-[9px] tracking-[0.2em] uppercase text-[#2F9E6E] mb-3">README</div>
+            <h2 className="font-['Playfair_Display'] font-bold text-[#1A1A1A] text-2xl md:text-3xl mb-8">完整文档</h2>
+            <style>{MD_CSS}</style>
+            <div className="md-body" dangerouslySetInnerHTML={{ __html: renderReadme(project.readme) }} />
+          </div>
+        </section>
+      )}
     </motion.div>
   );
 }
@@ -1114,6 +1129,129 @@ function escapeHtml(s: string): string {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+// ── README 全文渲染（转义防 XSS，支持标题/表格/代码块/列表/引用/加粗/链接）──
+const MD_CSS = `
+.md-body{color:#3A3A3A;font-size:15px;line-height:1.85;}
+.md-body h1{font-family:"Playfair Display",serif;font-weight:700;font-size:2.1rem;color:#1A1A1A;margin:0 0 10px;}
+.md-body h2{font-size:1.28rem;font-weight:700;color:#1A1A1A;margin:42px 0 16px;padding-top:18px;border-top:1px solid #EDF0EC;}
+.md-body h3{font-size:1.02rem;font-weight:700;color:#2F9E6E;margin:30px 0 10px;}
+.md-body h4{font-size:.95rem;font-weight:600;color:#444;margin:22px 0 8px;}
+.md-body p{margin:0 0 15px;}
+.md-body a{color:#2F9E6E;text-decoration:underline;text-underline-offset:3px;}
+.md-body ul,.md-body ol{margin:0 0 16px;padding-left:24px;}
+.md-body li{margin-bottom:7px;}
+.md-body strong{color:#1A1A1A;font-weight:700;}
+.md-body code{background:rgba(47,158,110,.1);color:#1B7A52;padding:1px 6px;border-radius:5px;font-size:.88em;font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;}
+.md-body pre{background:#F4F8F5;border:1px solid #E4EDE7;border-radius:12px;padding:16px 18px;overflow-x:auto;margin:0 0 18px;}
+.md-body pre code{background:transparent;color:#2E4B3D;padding:0;font-size:12.5px;line-height:1.75;display:block;}
+.md-body blockquote{border-left:3px solid #2F9E6E;background:#F4F8F5;padding:12px 18px;border-radius:0 12px 12px 0;margin:0 0 18px;color:#55675C;}
+.md-body table{width:100%;border-collapse:collapse;margin:0 0 22px;font-size:13.5px;}
+.md-body th{background:#2F9E6E;color:#fff;font-weight:600;text-align:left;padding:9px 12px;font-size:11.5px;letter-spacing:.03em;text-transform:uppercase;}
+.md-body td{padding:9px 12px;border-bottom:1px solid #EDF2EE;color:#4A4A4A;vertical-align:top;}
+.md-body tbody tr:nth-child(even){background:#FAFCFA;}
+.md-body hr{border:none;border-top:1px solid #EEEEEE;margin:30px 0;}
+`;
+
+function renderReadme(md: string): string {
+  const esc = (s: string) =>
+    s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const inline = (s: string) =>
+    esc(s)
+      .replace(/`([^`]+?)`/g, "<code>$1</code>")
+      .replace(/\*\*([^*]+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  const lines = md.replace(/\r\n/g, "\n").split("\n");
+  const html: string[] = [];
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i];
+    const t = line.trim();
+    // 代码块
+    if (t.startsWith("```")) {
+      const buf: string[] = [];
+      i++;
+      while (i < lines.length && !lines[i].trim().startsWith("```")) {
+        buf.push(lines[i]);
+        i++;
+      }
+      i++; // 跳过结束 ```
+      html.push(`<pre><code>${esc(buf.join("\n"))}</code></pre>`);
+      continue;
+    }
+    // 表格
+    if (t.startsWith("|")) {
+      const rows: string[][] = [];
+      while (i < lines.length && lines[i].trim().startsWith("|")) {
+        rows.push(lines[i].trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim()));
+        i++;
+      }
+      if (rows.length >= 2 && rows[1].every(c => /^:?-{1,}:?$/.test(c))) {
+        const head = rows[0];
+        const body = rows.slice(2);
+        html.push(
+          `<table><thead><tr>${head.map(c => `<th>${inline(c)}</th>`).join("")}</tr></thead>` +
+            `<tbody>${body.map(r => `<tr>${r.map(c => `<td>${inline(c)}</td>`).join("")}</tr>`).join("")}</tbody></table>`
+        );
+        continue;
+      }
+      html.push(`<p>${inline(line)}</p>`);
+      i++;
+      continue;
+    }
+    // 标题
+    const h = t.match(/^(#{1,6})\s+(.*)/);
+    if (h) {
+      html.push(`<h${h[1].length}>${inline(h[2])}</h${h[1].length}>`);
+      i++;
+      continue;
+    }
+    // 分隔线
+    if (/^(-{3,}|\*{3,})$/.test(t)) {
+      html.push("<hr/>");
+      i++;
+      continue;
+    }
+    // 引用
+    if (t.startsWith(">")) {
+      const buf: string[] = [];
+      while (i < lines.length && lines[i].trim().startsWith(">")) {
+        buf.push(lines[i].trim().replace(/^>\s?/, ""));
+        i++;
+      }
+      html.push(`<blockquote>${buf.map(inline).join("<br/>")}</blockquote>`);
+      continue;
+    }
+    // 列表（有序/无序）
+    if (/^[-*+]\s+/.test(t) || /^\d+[.、)]\s+/.test(t)) {
+      const ordered = /^\d+[.、)]\s+/.test(t);
+      const items: string[] = [];
+      while (i < lines.length) {
+        const lt = lines[i].trim();
+        if (/^[-*+]\s+/.test(lt) || /^\d+[.、)]\s+/.test(lt)) {
+          items.push(lt.replace(/^[-*+]\s+/, "").replace(/^\d+[.、)]\s+/, ""));
+          i++;
+        } else break;
+      }
+      const tag = ordered ? "ol" : "ul";
+      html.push(`<${tag}>${items.map(it => `<li>${inline(it)}</li>`).join("")}</${tag}>`);
+      continue;
+    }
+    // 空行
+    if (t === "") {
+      i++;
+      continue;
+    }
+    // 段落
+    const buf: string[] = [];
+    while (i < lines.length && lines[i].trim() !== "") {
+      buf.push(lines[i]);
+      i++;
+    }
+    html.push(`<p>${buf.map(inline).join("<br/>")}</p>`);
+  }
+  return html.join("");
 }
 
 function formatBotText(text: string): string {
